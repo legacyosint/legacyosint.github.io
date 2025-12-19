@@ -1,44 +1,78 @@
----
-layout: default
----
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>{{ site.title }} - Cyber Security</title>
+  <title>Naeem - Cyber Security</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Typed.js for typing effect -->
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
 
-  <!-- Particles.js for animated background -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
   <style>
+    /* --- CORE RESET & THEME --- */
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Courier New", Courier, monospace; /* Tech font */
       background: #050814;
       color: #e5e7eb;
-      overflow-x: hidden;
+      overflow: hidden; /* Prevent scrolling while overlay is active */
     }
+
     #particles-js {
       position: fixed;
       inset: 0;
       z-index: -1;
       background: radial-gradient(circle at top, #111827 0, #020617 60%);
     }
+
+    /* --- OVERLAY (Guns.lol style) --- */
+    #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: opacity 0.8s ease-in-out;
+    }
+
+    .click-text {
+        color: #fff;
+        font-size: 1.1rem;
+        letter-spacing: 3px;
+        text-transform: lowercase;
+        animation: pulse 2s infinite;
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    }
+
+    @keyframes pulse {
+        0% { opacity: 0.3; }
+        50% { opacity: 1; }
+        100% { opacity: 0.3; }
+    }
+
+    /* --- MAIN CONTENT LAYOUT --- */
     .page {
       max-width: 1000px;
       margin: 0 auto;
       padding: 3rem 1.5rem 4rem;
+      opacity: 0; /* Hidden initially */
+      filter: blur(15px);
+      transition: all 1.5s ease-out;
     }
+
+    /* --- HERO & TERMINAL --- */
     .hero {
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
-      margin-bottom: 3rem;
+      margin-bottom: 4rem;
     }
     .hero-title {
       font-size: clamp(2.4rem, 5vw, 3.2rem);
@@ -47,60 +81,23 @@ layout: default
       text-transform: uppercase;
       color: #22d3ee;
       text-shadow: 0 0 25px rgba(34,211,238,0.5);
+      margin-bottom: 10px;
     }
     .hero-subtitle {
       font-size: 1.05rem;
       max-width: 560px;
       color: #9ca3af;
+      line-height: 1.6;
     }
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .5rem;
-    }
-    .tag {
-      font-size: .75rem;
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,.5);
-      padding: .3rem .75rem;
-      background: linear-gradient(135deg, rgba(15,23,42,.9), rgba(30,64,175,.7));
-      box-shadow: 0 0 20px rgba(37,99,235,.35);
-    }
-    .glitch {
-      position: relative;
-      display: inline-block;
-    }
-    .glitch::before,
-    .glitch::after {
-      content: attr(data-text);
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: .7;
-      mix-blend-mode: screen;
-      pointer-events: none;
-    }
-    .glitch::before {
-      transform: translate(2px, -1px);
-      color: #22d3ee;
-      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 60%);
-    }
-    .glitch::after {
-      transform: translate(-2px, 1px);
-      color: #f97316;
-      clip-path: polygon(0 40%, 100% 35%, 100% 100%, 0 100%);
-    }
+
     .terminal {
       background: radial-gradient(circle at top left, #0f172a 0, #020617 55%);
       border-radius: 1rem;
       border: 1px solid #1f2937;
-      box-shadow:
-        0 0 0 1px rgba(15,23,42,.9),
-        0 18px 40px rgba(15,23,42,.9);
+      box-shadow: 0 0 0 1px rgba(15,23,42,.9), 0 18px 40px rgba(15,23,42,.9);
       overflow: hidden;
-      margin-bottom: 3rem;
+      margin-top: 2rem;
+      max-width: 600px;
     }
     .terminal-header {
       display: flex;
@@ -112,231 +109,158 @@ layout: default
       font-size: .75rem;
       color: #6b7280;
     }
-    .dot {
-      width: .6rem;
-      height: .6rem;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 10px rgba(34,197,94,.7);
-    }
-    .dot:nth-child(1) { background:#ef4444; box-shadow:0 0 8px rgba(239,68,68,.7); }
-    .dot:nth-child(2) { background:#eab308; box-shadow:0 0 8px rgba(234,179,8,.7); }
+    .dot { width: .6rem; height: .6rem; border-radius: 999px; background: #374151; }
+    .dot.red { background:#ef4444; box-shadow:0 0 8px rgba(239,68,68,.5); }
+    .dot.yellow { background:#eab308; box-shadow:0 0 8px rgba(234,179,8,.5); }
+    .dot.green { background:#22c55e; box-shadow:0 0 8px rgba(34,197,94,.5); }
+
     .terminal-body {
       padding: 1.25rem 1rem 1.5rem;
-      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-family: "JetBrains Mono", Consolas, monospace;
       font-size: .85rem;
       line-height: 1.6;
     }
-    .prompt-line {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .2rem;
-      align-items: center;
-    }
+    .prompt-line { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
     .prompt-user { color:#22c55e; }
-    .prompt-symbol { color:#4b5563; }
     .prompt-path { color:#38bdf8; }
-    .typed {
-      color: #e5e7eb;
-      min-height: 1.2em;
-      border-right: 2px solid #22d3ee;
-      animation: blink 1s step-end infinite;
-    }
-    @keyframes blink {
-      0%,100% { border-color: transparent; }
-      50% { border-color: #22d3ee; }
-    }
-    .section {
-      margin-bottom: 2.5rem;
-    }
+    .typed { color: #e5e7eb; }
+
+    /* --- CARDS & GRID --- */
+    .section { margin-bottom: 4rem; }
     .section-title {
-      font-size: 1rem;
+      font-size: 1.1rem;
       text-transform: uppercase;
       letter-spacing: .18em;
-      color: #6b7280;
-      margin-bottom: .4rem;
-    }
-    .section-title span {
-      color: #22d3ee;
-    }
-    .section-sub {
-      font-size: .9rem;
       color: #9ca3af;
-      margin-bottom: .9rem;
+      margin-bottom: .5rem;
+      border-bottom: 1px solid #1f2937;
+      padding-bottom: 0.5rem;
+      display: inline-block;
     }
-    .grid {
-      display: grid;
-      gap: 1rem;
-    }
+    .section-title span { color: #22d3ee; margin-right: 5px; }
+    .section-desc { color: #6b7280; margin-bottom: 1.5rem; font-size: 0.9rem; }
+
+    .grid { display: grid; gap: 1.5rem; }
+    .grid-2 { grid-template-columns: 1fr; }
     @media (min-width: 768px) {
-      .hero {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .hero-right {
-        width: 260px;
-      }
-      .grid-2 {
-        grid-template-columns: repeat(2, minmax(0,1fr));
-      }
+        .grid-2 { grid-template-columns: 1fr 1fr; }
+        .hero { flex-direction: row; justify-content: space-between; align-items: center; }
     }
+
     .card {
       border-radius: .9rem;
-      background: radial-gradient(circle at top, rgba(30,64,175,.4) 0, rgba(15,23,42,.9) 55%);
-      border: 1px solid rgba(30,64,175,.7);
-      padding: 1rem;
-      box-shadow: 0 16px 35px rgba(15,23,42,.9);
-      position: relative;
-      overflow: hidden;
+      background: rgba(17, 24, 39, 0.6);
+      border: 1px solid rgba(55, 65, 81, 0.5);
+      padding: 1.5rem;
+      transition: transform 0.2s, border-color 0.2s;
     }
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 0 0, rgba(56,189,248,.25) 0, transparent 55%);
-      opacity: 0;
-      transition: opacity .25s ease-out, transform .25s ease-out;
-      transform: translate3d(-15px,-15px,0);
-      pointer-events: none;
+    .card:hover {
+        border-color: #22d3ee;
+        transform: translateY(-2px);
     }
-    .card:hover::before {
-      opacity: 1;
-      transform: translate3d(0,0,0);
-    }
+    
     .card-title {
-      font-size: .95rem;
-      font-weight: 600;
-      margin-bottom: .25rem;
-      color: #e5e7eb;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #f3f4f6;
+      margin-bottom: 0.3rem;
     }
     .card-meta {
-      font-size: .75rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: .16em;
+      letter-spacing: 0.1em;
       color: #6b7280;
-      margin-bottom: .6rem;
+      margin-bottom: 1rem;
     }
     .card-body {
-      font-size: .85rem;
+      font-size: 0.9rem;
       color: #9ca3af;
+      line-height: 1.6;
     }
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .3rem;
-      margin-top: .7rem;
-    }
+
+    /* --- TAGS / PILLS --- */
+    .pill-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
     .pill {
-      font-size: .7rem;
-      padding: .2rem .55rem;
+      font-size: .75rem;
+      padding: .25rem .75rem;
       border-radius: 999px;
-      border: 1px solid rgba(148,163,184,.6);
-      color: #e5e7eb;
-      background: rgba(15,23,42,.8);
+      border: 1px solid #374151;
+      color: #d1d5db;
+      background: rgba(31, 41, 55, 0.5);
     }
-    .link-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .45rem;
-      margin-top: .7rem;
-      font-size: .8rem;
-    }
+
+    /* --- LINKS --- */
+    .link-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.5rem; }
     .link {
       color: #38bdf8;
       text-decoration: none;
-      position: relative;
+      font-size: 0.95rem;
+      transition: color 0.2s;
     }
-    .link::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -2px;
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(to right,#22d3ee,#38bdf8);
-      transform-origin: left;
-      transform: scaleX(0);
-      transition: transform .2s ease-out;
-    }
-    .link:hover::after {
-      transform: scaleX(1);
-    }
+    .link:hover { color: #7dd3fc; text-decoration: underline; }
+
   </style>
 </head>
 <body>
+
 <div id="particles-js"></div>
 
-<div class="page">
-  <!-- HERO -->
+<div id="overlay">
+    <div class="click-text">[ click to initialize ]</div>
+</div>
+
+<div class="page" id="main-content">
+  
   <section class="hero">
     <div>
-      <div class="hero-title glitch" data-text="{{ site.title }}">
-        {{ site.title }}
-      </div>
+      <div class="hero-title">NAEEM</div>
       <p class="hero-subtitle">
-        Cyber security specialist focused on <strong>offensive testing</strong>, <strong>OSINT</strong>, and
-        <strong>threat hunting</strong>. Turning noisy data and attack surfaces into clear, actionable intelligence.
+        Protocol initialized. Accessing secure nodes... <br>
+        Welcome to the portfolio.
       </p>
-      <div class="hero-tags">
-        <span class="tag">OSINT</span>
-        <span class="tag">Threat Hunting</span>
-        <span class="tag">Red Team</span>
-        <span class="tag">Blue Team</span>
-        <span class="tag">Malware Analysis</span>
-      </div>
     </div>
 
-    <div class="hero-right">
-      <div class="terminal">
+    <div class="terminal">
         <div class="terminal-header">
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span>live-session :: /home/{{ site.title | downcase | replace: " ", "_" }}</span>
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span>root@naeem: ~</span>
         </div>
         <div class="terminal-body">
           <div class="prompt-line">
-            <span class="prompt-user">analyst@lab</span>
-            <span class="prompt-symbol">~</span>
+            <span class="prompt-user">root@naeem</span>
+            <span class="prompt-path">~</span>
             <span class="prompt-path">$</span>
-            <span>&nbsp;</span>
             <span class="typed"></span>
           </div>
-          <pre style="margin-top:1rem; color:#6b7280;">
-# type a command:
-#   skills       → show capabilities
-#   cases        → show key engagements
-#   contact      → show contact options
-          </pre>
         </div>
       </div>
-    </div>
   </section>
 
-  <!-- SKILLS -->
   <section class="section">
     <div class="section-title"><span>//</span> Capabilities</div>
-    <div class="section-sub">
+    <div class="section-desc">
       Coverage across offensive testing, defensive monitoring, and OSINT pipelines.
     </div>
+    
     <div class="grid grid-2">
       <div class="card">
         <div class="card-title">Offensive Security</div>
-        <div class="card-meta">Attack Surface • Exploitation</div>
+        <div class="card-meta">ATTACK SURFACE • EXPLOITATION</div>
         <div class="card-body">
-          Performing focused recon, mapping exposed assets, and validating real-world exploit paths rather than
-          noisy vulnerability lists.
+          Performing focused recon, mapping exposed assets, and validating real-world exploit paths rather than noisy vulnerability lists.
           <div class="pill-row">
-            <span class="pill">Recon &amp; OSINT</span>
+            <span class="pill">Recon & OSINT</span>
             <span class="pill">Web App Testing</span>
             <span class="pill">Network Assessments</span>
           </div>
         </div>
       </div>
+
       <div class="card">
         <div class="card-title">Threat Defense</div>
-        <div class="card-meta">Detection Engineering</div>
+        <div class="card-meta">DETECTION ENGINEERING</div>
         <div class="card-body">
           Designing detection use cases, tuning alerts, and building repeatable incident response playbooks.
           <div class="pill-row">
@@ -349,68 +273,22 @@ layout: default
     </div>
   </section>
 
-  <!-- PROJECTS -->
-  <section class="section">
-    <div class="section-title"><span>//</span> Selected Operations</div>
-    <div class="section-sub">
-      A snapshot of lab projects and real-world style engagements.
-    </div>
-    <div class="grid grid-2">
-      <div class="card">
-        <div class="card-title">Attack Surface Recon Dashboard</div>
-        <div class="card-meta">OSINT • Automation</div>
-        <div class="card-body">
-          Aggregated subdomain enumeration, port scanning, and tech fingerprinting into a single, auto-updating view
-          for a mock SaaS company.
-          <div class="pill-row">
-            <span class="pill">Python</span>
-            <span class="pill">Nmap</span>
-            <span class="pill">Shodan</span>
-          </div>
-          <div class="link-row">
-            <a href="#" class="link">View repo</a>
-            <a href="#" class="link">Report sample (PDF)</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Blue Team Hunt Pack</div>
-        <div class="card-meta">Threat Hunting</div>
-        <div class="card-body">
-          Built ready-to-run hunt queries and visualizations for suspicious logins, lateral movement, and persistence
-          across Windows and cloud logs.
-          <div class="pill-row">
-            <span class="pill">KQL</span>
-            <span class="pill">Sigma Rules</span>
-            <span class="pill">MITRE ATT&amp;CK</span>
-          </div>
-          <div class="link-row">
-            <a href="#" class="link">Dashboards</a>
-            <a href="#" class="link">Case notes</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
   <section class="section">
     <div class="section-title"><span>//</span> Contact & Links</div>
-    <div class="section-sub">
+    <div class="section-desc">
       Available for remote consulting, security assessments, and collaborative research.
     </div>
     <div class="grid">
       <div class="card">
         <div class="card-title">Engage</div>
-        <div class="card-meta">Signal • E-mail • GitHub</div>
+        <div class="card-meta">SIGNAL • E-MAIL • GITHUB</div>
         <div class="card-body">
           <div class="link-row">
-            <a href="mailto:you@example.com" class="link">you@example.com</a>
-            <a href="https://github.com/yourusername" class="link">GitHub</a>
-            <a href="https://www.linkedin.com/in/yourprofile" class="link">LinkedIn</a>
+            <a href="mailto:naeemshanavas@gmail.com" class="link">naeemshanavas@gmail.com</a>
+            <a href="https://github.com/legacyosint" class="link">GitHub</a>
+            <a href="https://www.linkedin.com/in/naeem-shanavas" class="link">LinkedIn</a>
           </div>
-          <p style="margin-top:.8rem; color:#9ca3af; font-size:.85rem;">
+          <p style="margin-top:1rem; opacity:0.7; font-size: 0.85rem;">
             Replace links with your real handles and feel free to add a PGP key or HackerOne / Bugcrowd profile.
           </p>
         </div>
@@ -420,56 +298,75 @@ layout: default
 </div>
 
 <script>
-  /* Typed.js */
-  document.addEventListener("DOMContentLoaded", function () {
-    new Typed(".typed", {
-      strings: [
-        "skills",
-        "cases",
-        "contact",
-        "whoami && id",
-        "hunt --ioc critical",
-        "recon --target acme.corp",
-      ],
-      typeSpeed: 55,
-      backSpeed: 35,
-      backDelay: 1200,
-      loop: true,
-      smartBackspace: true
-    });
+  /* --- 1. HANDLING THE INTRO CLICK --- */
+  const overlay = document.getElementById('overlay');
+  const content = document.getElementById('main-content');
+  const body = document.body;
+
+  overlay.addEventListener('click', () => {
+    // Fade out overlay
+    overlay.style.opacity = '0';
+    overlay.style.pointerEvents = 'none';
+
+    // Reveal Content
+    content.style.opacity = '1';
+    content.style.filter = 'blur(0px)';
+    body.style.overflow = 'auto'; // Re-enable scrolling
+
+    // Start Typed.js effect ONLY after click
+    startTyping();
   });
 
-  /* Particles.js */
+  /* --- 2. TYPED.JS CONFIG --- */
+  function startTyping() {
+      new Typed(".typed", {
+        strings: [
+            "whoami",
+            "cat capabilities.txt",
+            "establishing_connection...",
+            "access_granted"
+        ],
+        typeSpeed: 50,
+        backSpeed: 30,
+        backDelay: 1000,
+        loop: true
+      });
+  }
+
+  /* --- 3. PARTICLES.JS CONFIG --- */
   particlesJS("particles-js", {
     particles: {
-      number: { value: 60, density: { enable: true, value_area: 1000 } },
-      color: { value: "#22d3ee" },
+      number: { value: 80, density: { enable: true, value_area: 800 } },
+      color: { value: "#22d3ee" }, // Cyan particles
       shape: { type: "circle" },
-      opacity: { value: 0.4, random: true },
-      size: { value: 2, random: true },
+      opacity: { value: 0.5, random: true },
+      size: { value: 3, random: true },
       line_linked: {
         enable: true,
-        distance: 140,
-        color: "#1d4ed8",
-        opacity: 0.4,
+        distance: 150,
+        color: "#22d3ee",
+        opacity: 0.2,
         width: 1
       },
       move: {
         enable: true,
-        speed: 1.1,
+        speed: 2,
         direction: "none",
-        out_mode: "out"
+        random: false,
+        straight: false,
+        out_mode: "out",
+        bounce: false,
       }
     },
     interactivity: {
       detect_on: "canvas",
       events: {
-        onhover: { enable: true, mode: "grab" },
+        onhover: { enable: true, mode: "repulse" },
         onclick: { enable: true, mode: "push" },
         resize: true
       },
       modes: {
-        grab: { distance: 180, line_linked: { opacity: 0.7 } },
+        repulse: { distance: 100, duration: 0.4 },
         push: { particles_nb: 4 }
       }
     },
