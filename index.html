@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Naeem - Cyber Security</title>
+  <title>Naeem - Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
@@ -153,6 +153,8 @@
       border: 1px solid rgba(55, 65, 81, 0.5);
       padding: 1.5rem;
       transition: transform 0.2s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
     }
     .card:hover {
         border-color: #22d3ee;
@@ -176,6 +178,28 @@
       font-size: 0.9rem;
       color: #9ca3af;
       line-height: 1.6;
+      flex-grow: 1; /* Pushes buttons to bottom if needed */
+    }
+
+    /* --- CUSTOM BUTTONS --- */
+    .card-btn {
+      display: inline-block;
+      margin-top: 1.2rem;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid #22d3ee;
+      color: #22d3ee;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      border-radius: 4px;
+      transition: all 0.2s;
+      background: rgba(34, 211, 238, 0.05);
+    }
+    .card-btn:hover {
+      background: #22d3ee;
+      color: #000;
+      box-shadow: 0 0 12px rgba(34, 211, 238, 0.6);
     }
 
     /* --- TAGS / PILLS --- */
@@ -241,33 +265,39 @@
   <section class="section">
     <div class="section-title"><span>//</span> Capabilities</div>
     <div class="section-desc">
-      Coverage across offensive testing, defensive monitoring, and OSINT pipelines.
+      These are the stuff i am highly experienced in
     </div>
     
     <div class="grid grid-2">
       <div class="card">
-        <div class="card-title">Offensive Security</div>
-        <div class="card-meta">ATTACK SURFACE • EXPLOITATION</div>
+        <div class="card-title">Programming & Web Dev</div>
+        <div class="card-meta">AI • DATA SCIENCE</div>
         <div class="card-body">
-          Performing focused recon, mapping exposed assets, and validating real-world exploit paths rather than noisy vulnerability lists.
+          I am a well experienced coding and AI dev, my short projects are all attached to the next page, my repo's are all just pure example of my favorite hobby.
+          
           <div class="pill-row">
-            <span class="pill">Recon & OSINT</span>
-            <span class="pill">Web App Testing</span>
-            <span class="pill">Network Assessments</span>
+            <span class="pill">Web Dev</span>
+            <span class="pill">Coding</span>
+            <span class="pill">Entrepreneur</span>
           </div>
+
+          <a href="resume.pdf" class="card-btn">Download CV</a>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">Threat Defense</div>
-        <div class="card-meta">DETECTION ENGINEERING</div>
+        <div class="card-title">Video Editing & 3D</div>
+        <div class="card-meta">GFX • VFX • BLENDER</div>
         <div class="card-body">
-          Designing detection use cases, tuning alerts, and building repeatable incident response playbooks.
+          I love and am passionate about 3D and graphical video editing, its helped me earn plenty bucks from freelancing and commissions, i love to keep it as a side business.
+          
           <div class="pill-row">
-            <span class="pill">SIEM Rules</span>
-            <span class="pill">Log Analysis</span>
-            <span class="pill">Playbooks</span>
+            <span class="pill">After Effects</span>
+            <span class="pill">Cinema 4D</span>
+            <span class="pill">3D</span>
           </div>
+
+          <a href="https://fiverr.com/naeemshanavas" target="_blank" class="card-btn">View Business</a>
         </div>
       </div>
     </div>
@@ -323,8 +353,8 @@
         strings: [
             "whoami",
             "cat capabilities.txt",
-            "establishing_connection...",
-            "access_granted"
+            "python3 ai_model.py",
+            "render_blender_scene..."
         ],
         typeSpeed: 50,
         backSpeed: 30,
