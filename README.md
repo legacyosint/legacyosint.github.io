@@ -1,2 +1,2 @@
-# legacyosint.github.io
+# artheral.github.io
 welcome to my website!
