@@ -1,366 +1,763 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Naeem Shanavas | Portfolio</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        dark: '#050814',
-                        brand: { 500: '#d946ef', 400: '#e879f9' },
-                        cyan: { 500: '#06b6d4', 400: '#22d3ee' },
-                        card: 'rgba(30, 41, 59, 0.4)',
-                        cardBorder: 'rgba(255, 255, 255, 0.1)'
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Outfit', 'sans-serif'],
-                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
-                    },
-                }
-            }
-        }
-    </script>
-
+    <title>Naeem Shanavas | Business & Ecommerce Portfolio</title>
     <style>
-        body { background-color: #050814; color: #e2e8f0; overflow-x: hidden; font-family: 'Inter', sans-serif; }
-        
-        /* Glass Effect */
-        .glass {
-            background: var(--card);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--cardBorder);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .glass:hover {
-            background: rgba(30, 41, 59, 0.6);
-            border-color: rgba(217, 70, 239, 0.5);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 40px -10px rgba(217, 70, 239, 0.2);
-        }
-        
-        .text-gradient {
-            background: linear-gradient(to right, #e879f9, #22d3ee);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* --- FONTS --- */
+        .ttcommons {
+            font-family: 'Inter', sans-serif; /* Fallback to Inter if local font missing */
         }
 
-        /* --- SPLASH SCREEN ANIMATION --- */
-        #splash-screen {
-            position: fixed;
-            inset: 0;
-            background: #050814;
-            z-index: 9999;
+        .tools-description.ttcommons {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* --- RESET & BASE --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #000000;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* --- ANIMATIONS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.9s cubic-bezier(.165, .84, .44, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-section {
+            background:
+                radial-gradient(circle at center, transparent 20%, rgba(0, 0, 0, 0.8) 100%),
+                radial-gradient(circle at 75% 50%, #ff8c42 0%, #f7931e 30%, #c1272d 60%, #000000 100%);
+            min-height: 95vh;
+            padding: 2rem;
+            border-radius: 0 0 60px 60px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-section.hero-active {
+            box-shadow: inset 0 -80px 120px rgba(0, 0, 0, 0.35);
+            transition: box-shadow 0.6s ease;
+        }
+
+        nav {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.6rem 1.2rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .cta-button {
+            background: white;
+            color: #ff6b35;
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        .arrow {
+            width: 20px;
+            height: 20px;
+            background: #ff6b35;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: white;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            text-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .highlight {
+            color: #ff6b35; /* Orange accent */
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+            max-width: 500px;
+        }
+
+        .service-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .service-icon {
+            width: 24px;
+            height: 24px;
+            color: #ff6b35;
+            flex-shrink: 0;
+        }
+
+        .service-name {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .hero-right {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            border-radius: 24px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-right h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .hero-right p {
+            font-size: 1rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* --- BRANDS --- */
+        .brands-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .brands-title {
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            opacity: 0.5;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .brands-grid {
             display: flex;
             justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
             align-items: center;
-            font-family: 'Outfit', sans-serif; 
+            font-size: 1.5rem;
+            font-weight: bold;
+            opacity: 0.6;
+        }
+
+        /* --- ABOUT & CAROUSEL --- */
+        .about-section {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1.2fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+            align-items: center;
+        }
+
+        .about-divider {
+            width: 1px;
+            height: 180px;
+            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.2), transparent);
+        }
+
+        .section-label {
+            color: #ff6b35;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .about-title {
+            font-size: 3.5rem;
+            line-height: 1.1;
             font-weight: 700;
-            font-size: 4rem; 
-            color: #fff;
-            perspective: 1000px;
         }
 
-        .anim-container { display: flex; align-items: baseline; position: relative; gap: 2px; }
-        #wrapper-at { display: inline-block; transform-style: preserve-3d; color: #d946ef; }
-        
-        .reveal-text {
-            display: inline-block; overflow: hidden; max-width: 0; opacity: 0;
-            white-space: nowrap; transition: max-width 1s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
-        }
-        #text-arth { color: #d946ef; text-align: right; }
-        #text-ral { color: #22d3ee; }
-        #char-underscore { color: #fff; opacity: 0; transition: opacity 0.5s; }
-        
-        #initial-underline {
-            position: absolute; bottom: -8px; left: 0; width: 100%; height: 6px;
-            background: #d946ef; border-radius: 4px; opacity: 0; transition: opacity 0.4s ease;
+        .about-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #aaa;
+            max-width: 600px;
+            text-align: left;
         }
 
-        .spin-3d { animation: spinFlip 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
-        @keyframes spinFlip { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(360deg); } }
+        .portfolio-carousel {
+            overflow: hidden;
+            padding: 2rem 0;
+            background: #050505;
+            position: relative;
+            width: 100vw;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+        }
 
-        .blur-out { animation: blurOut 1s forwards; pointer-events: none; }
-        @keyframes blurOut { to { opacity: 0; filter: blur(30px); transform: scale(1.05); } }
+        .carousel-container {
+            display: flex;
+            gap: 20px;
+            animation: scroll 40s linear infinite;
+        }
 
-        .hidden-content { opacity: 0; }
-        .visible-content { opacity: 1; transition: opacity 1.5s ease; }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
 
-        /* Badge Override for Dark Mode */
-        .LI-profile-badge { width: 100%; display: flex; justify-content: center; }
+        .portfolio-item {
+            min-width: 300px;
+            height: 200px;
+            background: #1a1a1a;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #333;
+            color: #555;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* --- PROFILE SECTION --- */
+        .profile-about-section {
+            max-width: 1400px;
+            margin: 8rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-details h3 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ff6b35;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+
+        .about-details h3:first-child { margin-top: 0; }
+
+        .about-details p, .about-details ul {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: #cfcfcf;
+            list-style: none;
+        }
+
+        .profile-image-placeholder {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(45deg, #111, #222);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #444;
+            font-weight: bold;
+            border: 1px solid #333;
+        }
+
+        /* --- TOOLS SECTION --- */
+        .tools-section {
+            max-width: 1400px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+        }
+
+        .tools-container {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .tools-title {
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            opacity: 0.5;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tool-item {
+            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.2s;
+        }
+
+        .tool-item:hover { transform: translateY(-5px); background: rgba(255,255,255,0.1); }
+
+        .tool-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: block;
+        }
+
+        .tools-description {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            padding-left: 2rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- CATEGORIES (PROJECTS) --- */
+        .categories-section {
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+        }
+
+        .category-card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: flex-end;
+            padding: 3rem;
+            text-decoration: none;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .category-card:hover {
+            border-color: #ff6b35;
+            z-index: 2;
+        }
+
+        .category-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            transition: transform 0.8s ease, opacity 0.5s ease;
+        }
+
+        .category-card:hover .category-video {
+            transform: scale(1.05);
+            opacity: 0.7;
+        }
+
+        .category-title {
+            position: relative;
+            z-index: 3;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* --- FOOTER --- */
+        .site-footer {
+            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.05), #000);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .footer-name {
+            grid-column: 1 / -1;
+            font-size: clamp(3rem, 15vw, 10rem);
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.05);
+            text-align: center;
+            margin-bottom: 2rem;
+            user-select: none;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 4rem;
+            justify-content: flex-end;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-column span {
+            color: #ff6b35;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover { color: white; }
+
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+            font-size: 0.8rem;
+            color: #555;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero-content, .tools-container, .footer-container, .profile-about-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-right, .tools-right { border: none; padding: 1rem 0; }
+            .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .about-divider { display: none; }
+            .footer-links { justify-content: center; }
+            .categories-section { grid-template-columns: 1fr; height: auto; }
+            .category-card { height: 50vh; }
+            .nav-links { display: none; } /* Simple hide for mobile */
+        }
     </style>
 </head>
-<body class="min-h-screen relative selection:bg-brand-500/30 selection:text-white">
 
-    <div id="splash-screen">
-        <div class="anim-container">
-            <div class="relative mx-1">
-                <span id="wrapper-at">e</span>
-                <div id="initial-underline"></div>
-            </div>
-            <div id="text-arth" class="reveal-text">arth</div>
-            <span id="char-underscore">_</span>
-            <div id="text-ral" class="reveal-text">ral</div>
-        </div>
-    </div>
+<body>
 
-    <div id="main-content" class="hidden-content">
-        
-        <div class="fixed top-0 left-0 w-full h-screen overflow-hidden -z-10 pointer-events-none">
-            <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-brand-500/20 blur-[120px] rounded-full"></div>
-            <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-cyan-500/10 blur-[120px] rounded-full"></div>
-        </div>
-
-        <nav class="w-full py-6 px-6 relative z-10 border-b border-white/5 bg-dark/50 backdrop-blur-sm sticky top-0">
-            <div class="max-w-6xl mx-auto flex justify-between items-center">
-                <h1 class="text-2xl font-display font-bold tracking-tight text-white hover:text-brand-400 transition cursor-pointer">NAEEM.</h1>
-                <div class="flex gap-6 text-sm font-medium text-slate-400 font-sans">
-                    <a href="mailto:naeemshanavas@gmail.com" class="hover:text-white transition">Email</a>
-                    <a href="https://github.com/artheral" class="hover:text-white transition">GitHub</a>
-                    <a href="https://www.linkedin.com/in/naeem-shanavas" class="hover:text-white transition">LinkedIn</a>
-                </div>
-            </div>
+    <section class="hero-section reveal">
+        <nav>
+            <div class="logo">NAEEM.</div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#about">Profile</a></li>
+                <li><a href="#ventures">Ventures</a></li>
+            </ul>
+            <a href="contact.html" class="cta-button">
+                Let's Talk <span class="arrow">→</span>
+            </a>
         </nav>
 
-        <section class="pt-24 pb-20 px-6 text-center relative z-10">
-            <div class="inline-block mb-6 px-4 py-1.5 rounded-full border border-brand-500/30 bg-brand-500/10 text-xs font-bold tracking-widest text-brand-400 font-sans uppercase">
-                Cyber Security & AI Developer
-            </div>
-            <h1 class="text-5xl md:text-7xl font-display font-bold leading-tight mb-6 text-white drop-shadow-2xl">
-                Building the Future of <br />
-                <span class="text-gradient">Tech & Visuals</span>
-            </h1>
-            <p class="text-lg text-slate-400 max-w-2xl mx-auto mb-10 font-sans leading-relaxed">
-                I am Naeem Shanavas. Highly experienced in Web development, Back-end and Front-end creation, 3D graphics & crazy interested in freelancing with creativity. I love to connect with people so hit me up on LinkedIn and let's collaborate!
-            </p>
-            
-            <div class="flex justify-center gap-4 font-sans mb-16">
-                <a href="#projects" class="px-8 py-3 rounded-full bg-white text-black font-bold hover:bg-gray-200 transition transform hover:scale-105">View Projects</a>
-                <a href="NAEEM SHANAVAS CV.pdf" class="px-8 py-3 rounded-full glass text-white font-medium hover:bg-white/10 transition transform hover:scale-105">View CV</a>
-            </div>
+        <div class="hero-content reveal">
+            <div class="hero-text">
+                <h1>
+                    Business<br>
+                    <span class="highlight">Enthusiast</span><br>
+                    & Scaling Strategist
+                </h1>
 
-            <div class="flex justify-center w-full max-w-sm mx-auto overflow-hidden rounded-xl border border-white/10 shadow-2xl">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="dark" data-type="VERTICAL" data-vanity="naeemshanavas" data-version="v1">
-                    <a class="badge-base__link LI-simple-link" href="https://in.linkedin.com/in/naeemshanavas?trk=profile-badge">Naeem Shanavas</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-20 px-6 relative z-10">
-            <div class="max-w-5xl mx-auto">
-                <div class="mb-12 border-b border-white/10 pb-4">
-                    <h2 class="text-xl font-display font-bold text-white tracking-widest uppercase text-slate-400">// Capabilities</h2>
-                    <p class="text-slate-500 text-sm mt-2">Coverage across offensive testing, defensive monitoring, and OSINT pipelines.</p>
-                </div>
-                
-                <div class="grid md:grid-cols-2 gap-8 font-sans">
-                    <div class="glass rounded-2xl p-8 flex flex-col h-full">
-                        <h3 class="text-2xl font-display font-bold text-white mb-1">Offensive Security</h3>
-                        <p class="text-xs font-bold text-slate-500 mb-6 tracking-widest uppercase">ATTACK SURFACE • EXPLOITATION</p>
-                        
-                        <p class="text-slate-400 text-sm leading-relaxed mb-8 flex-grow">
-                            Performing focused recon, mapping exposed assets, and validating real-world exploit paths rather than noisy vulnerability lists.
-                        </p>
-                        
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">Recon & OSINT</span>
-                            <span class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">Web App Testing</span>
-                            <span class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">Network Assessments</span>
-                        </div>
+                <div class="services">
+                    <div class="service-item">
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M2 20h20"></path><path d="M5 20V8h4v12"></path><path d="M11 20V4h4v16"></path><path d="M17 20v-9h4v9"></path>
+                        </svg>
+                        <div class="service-name">Business Analysis</div>
                     </div>
-
-                    <div class="glass rounded-2xl p-8 flex flex-col h-full">
-                        <h3 class="text-2xl font-display font-bold text-white mb-1">Threat Defense</h3>
-                        <p class="text-xs font-bold text-slate-500 mb-6 tracking-widest uppercase">DETECTION ENGINEERING</p>
-                        
-                        <p class="text-slate-400 text-sm leading-relaxed mb-8 flex-grow">
-                            Designing detection use cases, tuning alerts, and building repeatable incident response playbooks.
-                        </p>
-                        
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">SIEM Rules</span>
-                            <span class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">Log Analysis</span>
-                            <span class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300">Playbooks</span>
-                        </div>
+                    <div class="service-item">
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <div class="service-name">Ecommerce</div>
+                    </div>
+                    <div class="service-item">
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        </svg>
+                        <div class="service-name">Strategic Growth</div>
+                    </div>
+                    <div class="service-item">
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                        <div class="service-name">Finance</div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section id="projects" class="py-20 px-6">
-            <div class="max-w-5xl mx-auto">
-                <div class="mb-12 border-b border-white/10 pb-4">
-                    <h2 class="text-xl font-display font-bold text-white tracking-widest uppercase text-slate-400">// GitHub Repositories</h2>
-                    <p class="text-slate-500 text-sm mt-2 font-sans">Selected projects from <span class="text-brand-400">@artheral</span></p>
-                </div>
+            <div class="hero-right">
+                <h3>Transforming Concepts into Scalable Ventures.</h3>
+                <p>Driven by data, strategy, and innovation. I specialize in identifying market opportunities and building robust business models for the digital age.</p>
+            </div>
+        </div>
+    </section>
 
-                <div id="repo-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 font-sans">
-                    <div class="glass p-8 rounded-2xl col-span-full text-center">
-                        <div class="inline-block w-6 h-6 border-2 border-brand-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-                        <p class="text-slate-400">Fetching latest repositories...</p>
-                    </div>
+    <section class="brands-section">
+        <div class="brands-title">Focus Areas</div>
+        <div class="brands-grid">
+            <span>ECOMMERCE</span>
+            <span>•</span>
+            <span>STRATEGY</span>
+            <span>•</span>
+            <span>MARKETING</span>
+            <span>•</span>
+            <span>ANALYTICS</span>
+        </div>
+    </section>
+
+    <section class="about-section reveal" id="about">
+        <div class="about-grid">
+            <div class="about-left">
+                <p class="section-label">My Journey</p>
+                <h2 class="about-title">From Tech<br>To <span class="highlight">Business</span></h2>
+            </div>
+
+            <div class="about-divider"></div>
+
+            <div class="about-right">
+                <p class="about-description">
+                    Transitioning from a background in technology to the dynamic world of business, my focus has shifted towards scaling enterprises and mastering the ecommerce landscape. Currently a BBA undergraduate and MBA aspirant, I combine analytical rigor with entrepreneurial vision to drive sustainable growth.
+                </p>
+            </div>
+        </div>
+
+        <div class="portfolio-carousel">
+            <div class="carousel-container">
+                <div class="portfolio-item">Market Analysis</div>
+                <div class="portfolio-item">Startup Model</div>
+                <div class="portfolio-item">Financial Plan</div>
+                <div class="portfolio-item">Brand Strategy</div>
+                <div class="portfolio-item">Supply Chain</div>
+                <div class="portfolio-item">Market Analysis</div>
+                <div class="portfolio-item">Startup Model</div>
+                <div class="portfolio-item">Financial Plan</div>
+                <div class="portfolio-item">Brand Strategy</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="profile-about-section reveal">
+        <div class="about-details about-left">
+            <h3>Education</h3>
+            <ul>
+                <li>BBA Undergraduate</li>
+                <li>MBA Aspirant</li>
+            </ul>
+
+            <h3>Focus</h3>
+            <p>Scaling Businesses, Ecommerce Optimization, Strategic Management</p>
+
+            <h3>Mission</h3>
+            <p>To build and scale impactful digital businesses.</p>
+        </div>
+
+        <div class="profile-image-placeholder">
+            <span>Naeem Shanavas</span>
+        </div>
+
+        <div class="about-details about-right">
+            <h3>Languages</h3>
+            <ul>
+                <li>English</li>
+                <li>Hindi</li>
+                <li>[Other]</li>
+            </ul>
+
+            <h3>Expertise</h3>
+            <p>Business Strategy, Digital Marketing, Financial Analysis</p>
+
+            <h3>Connect</h3>
+            <p>Let's discuss your next venture.<br><a href="contact.html">Get in touch</a></p>
+        </div>
+    </section>
+
+    <section class="tools-section reveal">
+        <div class="tools-container">
+            <div class="tools-left">
+                <div class="tools-title">Business Stack</div>
+                <div class="tools-grid">
+                    <div class="tool-item"><span class="tool-name">Excel</span></div>
+                    <div class="tool-item"><span class="tool-name">Power BI</span></div>
+                    <div class="tool-item"><span class="tool-name">Shopify</span></div>
+                    <div class="tool-item"><span class="tool-name">Analytics</span></div>
+                    <div class="tool-item"><span class="tool-name">CRM</span></div>
+                    <div class="tool-item"><span class="tool-name">Notion</span></div>
                 </div>
             </div>
-        </section>
-
-        <section class="py-20 px-6">
-            <div class="max-w-5xl mx-auto">
-                <div class="mb-8 border-b border-white/10 pb-4">
-                    <h2 class="text-xl font-display font-bold text-white tracking-widest uppercase text-slate-400">// Contact & Links</h2>
-                    <p class="text-slate-500 text-sm mt-2">Available for remote consulting, security assessments, and collaborative research.</p>
-                </div>
-
-                <div class="glass rounded-2xl p-8 max-w-2xl">
-                    <h3 class="text-2xl font-display font-bold text-white mb-2">Engage</h3>
-                    <p class="text-xs font-bold text-slate-500 mb-6 tracking-widest uppercase">SIGNAL • E-MAIL • GITHUB</p>
-                    
-                    <div class="flex flex-wrap gap-6 text-sm font-medium mb-6">
-                        <a href="mailto:naeemshanavas@gmail.com" class="text-cyan-400 hover:text-cyan-300 transition">naeemshanavas@gmail.com</a>
-                        <a href="https://github.com/artheral" class="text-cyan-400 hover:text-cyan-300 transition">GitHub</a>
-                        <a href="https://linkedin.com/in/naeemshanavas" class="text-cyan-400 hover:text-cyan-300 transition">LinkedIn</a>
-                    </div>
-
-                    <p class="text-slate-500 text-sm leading-relaxed">
-                        Replace links with your real handles and feel free to add a PGP key or HackerOne / Bugcrowd profile.
-                    </p>
-                </div>
+            <div class="tools-right">
+                <p class="tools-description">
+                    I utilize industry-standard <b>analytical tools</b> and <b>management platforms</b> to make data-driven decisions and streamline business operations.
+                </p>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <footer class="py-12 border-t border-white/10 bg-black/20 text-center font-sans mt-20">
-            <p class="text-slate-600 text-xs uppercase tracking-widest">© 2026 Naeem Shanavas</p>
-        </footer>
+    <section class="categories-section reveal" id="ventures">
+        <a href="ventures.html" class="category-card">
+            <div class="category-title">Ventures</div>
+        </a>
+        <a href="#" class="category-card">
+            <div class="category-title">Case Studies</div>
+        </a>
+        <a href="#" class="category-card">
+            <div class="category-title">Strategy</div>
+        </a>
+        <a href="#" class="category-card">
+            <div class="category-title">Analysis</div>
+        </a>
+    </section>
+
+    <div id="glass-button-container">
+        <a href="contact.html" style="text-decoration:none; color:white; font-weight:bold; text-transform:uppercase;">Connect</a>
     </div>
 
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-name">NAEEM</div>
+            
+            <div class="footer-left">
+                <p style="color: #aaa;">Building value through innovation and strategy.</p>
+            </div>
+
+            <div class="footer-links">
+                <div class="footer-column">
+                    <span>Navigate</span>
+                    <a href="#">Home</a>
+                    <a href="#about">Profile</a>
+                    <a href="#ventures">Ventures</a>
+                </div>
+                <div class="footer-column">
+                    <span>Socials</span>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Email</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 Naeem Shanavas • Business & Ecommerce Portfolio
+        </div>
+    </footer>
+
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // --- 1. ANIMATION SEQUENCE ---
-            const wrapperAt = document.getElementById('wrapper-at');
-            const initialUnderline = document.getElementById('initial-underline');
-            const textArth = document.getElementById('text-arth');
-            const charUnderscore = document.getElementById('char-underscore');
-            const textRal = document.getElementById('text-ral');
-            const splashScreen = document.getElementById('splash-screen');
-            const mainContent = document.getElementById('main-content');
-
-            // Animation Timeline
-            setTimeout(() => { initialUnderline.style.opacity = '1'; }, 500);
-            setTimeout(() => { wrapperAt.classList.add('spin-3d'); }, 1500);
-            setTimeout(() => { wrapperAt.textContent = "@"; }, 1900);
-            
-            setTimeout(() => {
-                initialUnderline.style.opacity = '0';
-                textArth.style.maxWidth = "3.5em"; 
-                textArth.style.opacity = "1";
-                charUnderscore.style.opacity = "1";
-                textRal.style.maxWidth = "2.5em"; 
-                textRal.style.opacity = "1";
-            }, 3000);
-
-            setTimeout(() => {
-                splashScreen.classList.add('blur-out');
-                mainContent.classList.remove('hidden-content');
-                mainContent.classList.add('visible-content');
-            }, 5000);
-
-            setTimeout(() => { splashScreen.style.display = 'none'; }, 6200);
-
-
-            // --- 2. GITHUB FETCH LOGIC ---
-            const container = document.getElementById('repo-grid');
-            const username = 'artheral';
-            
-            // Hardcoded "Featured" Repos fallback in case API fails or is empty
-            const fallbackRepos = [
-                {
-                    html_url: "https://github.com/artheral/Artheral-AI",
-                    name: "Artheral-AI",
-                    description: "AI-Powered Social Growth Automation tool. The core engine for the Artheral platform.",
-                    language: "Python",
-                    stargazers_count: 12,
-                    forks_count: 4
-                },
-                {
-                    html_url: "https://github.com/artheral/artheral.github.io",
-                    name: "artheral.github.io",
-                    description: "Personal portfolio and landing page for Artheral, built with HTML/Tailwind.",
-                    language: "HTML",
-                    stargazers_count: 5,
-                    forks_count: 1
-                },
-                {
-                    html_url: "https://github.com/artheral/Social-Scraper",
-                    name: "Social-Scraper",
-                    description: "Advanced OSINT tool for scraping public social media profiles for data analysis.",
-                    language: "Python",
-                    stargazers_count: 8,
-                    forks_count: 2
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
                 }
-            ];
+            });
+        }, { threshold: 0.1 });
 
-            function renderRepos(repos) {
-                container.innerHTML = '';
-                repos.forEach(repo => {
-                    const card = `
-                        <a href="${repo.html_url}" target="_blank" class="glass p-6 rounded-2xl block hover:bg-white/5 transition group no-underline flex flex-col h-full">
-                            <div class="flex justify-between items-start mb-4">
-                                <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
-                                <svg class="w-5 h-5 text-slate-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                            </div>
-                            <h3 class="font-bold text-lg text-white mb-2 group-hover:text-brand-400 transition-colors">${repo.name}</h3>
-                            <p class="text-sm text-slate-400 mb-6 flex-grow line-clamp-3">${repo.description || "No description provided."}</p>
-                            <div class="flex items-center gap-4 text-xs text-slate-500 font-mono mt-auto">
-                                <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-cyan-500"></span> ${repo.language || "Code"}</span>
-                                <span>★ ${repo.stargazers_count}</span>
-                                <span>⑂ ${repo.forks_count}</span>
-                            </div>
-                        </a>
-                    `;
-                    container.innerHTML += card;
-                });
-            }
-
-            async function loadRepos() {
-                try {
-                    // Try fetch User
-                    let response = await fetch(`https://api.github.com/users/${username}/repos?sort=pushed&per_page=6`);
-                    if (response.status === 404) {
-                        // Try fetch Org
-                        response = await fetch(`https://api.github.com/orgs/${username}/repos?sort=pushed&per_page=6`);
-                    }
-
-                    if (!response.ok) throw new Error("API Error");
-                    
-                    const repos = await response.json();
-                    
-                    if (repos.length > 0) {
-                        renderRepos(repos);
-                    } else {
-                        // Use fallback if user exists but has no public repos
-                        renderRepos(fallbackRepos);
-                    }
-
-                } catch (error) {
-                    console.log("GitHub API failed or rate limited, using fallback data.");
-                    renderRepos(fallbackRepos);
-                }
-            }
-            loadRepos();
-        });
+        revealElements.forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
